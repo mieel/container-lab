@@ -6,7 +6,11 @@
     * ℹ if you have a license for the Enterprise version, uncomment the copy license line, and replace `UniversalDashboard.Community` with `UniversalDashboard`
   
 2. Dashboard.ps1
+    * Just a minimal starter dashboard for demo.
+    
 3. dockerbuild.ps1
+    * Builds Image, runs container and performs a test webrequest
+    
 ## Demo
 1. go to `/ud-docker` directory
 2. Run `dockerbuild.ps`
