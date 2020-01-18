@@ -1,8 +1,9 @@
 # Running Universal Dashboard in IIS, in a Docker Container.
 ## High level overview
 1. Dockerfile
-  * uses `mcr.microsoft.com/windows/servercore/iis` as starting image
-  * installs dotnet, Nuget and Universal Dashboard  
+    * uses `mcr.microsoft.com/windows/servercore/iis` as starting image
+    * installs dotnet, Nuget and Universal Dashboard
+    * ℹ if you have a license for the Enterprise version, uncomment the copy license line, and replace `UniversalDashboard.Community` with `UniversalDashboard`
   
 2. Dashboard.ps1
 3. dockerbuild.ps1
