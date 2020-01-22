@@ -20,7 +20,8 @@ RUN Install-PackageProvider -Name NuGet -RequiredVersion 2.8.5.201 -Force
 
 RUN Save-Module -Name UniversalDashboard.Community -RequiredVersion 2.8.1 -Path C:\inetpub\wwwroot -Force
 RUN Copy-Item -Path C:\inetpub\wwwroot\UniversalDashboard.Community\2.8.1\* -Destination C:\inetpub\wwwroot -Container -Recurse
-RUN Remove-Item -Path C:\inetpub\wwwroot\UniversalDashboard.Community -Force -Recurse
+RUN Get-ChildItem C:\windows\temp\UniversalDashboard.Community -Recurse -Force | `
+        Sort-Object pspath -Descending -unique | Remove-Item -Force  -recurse
 
 COPY ["dashboard.ps1", "c:/inetpub/wwwroot/dashboard.ps1"]
 
