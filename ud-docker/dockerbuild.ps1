@@ -1,6 +1,7 @@
 # BUILD IMAGE
 $tag = 'iis-ud'
 Try {
+    cd $PSScriptRoot
     docker build -t $tag .
 } Catch {
     Throw $_
