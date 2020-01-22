@@ -13,4 +13,4 @@ steps:
 
 - task: PowerShell@2
   inputs:
-    filePath: 'ud-docker\dockerbuild.ps1'
+    filePath: 'ud-docker/dockerbuild.ps1'
