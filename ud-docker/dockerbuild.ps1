@@ -1,8 +1,11 @@
-# BUILD IMAGE
-$tag = 'iis-ud'
+Param(
+    [ValidateSet("2016","2019")]
+    $WindowsVersion
+)# BUILD IMAGE
+$tag = "$WindowsVersion-iis-ud"
 Try {
     cd $PSScriptRoot
-    docker build -t $tag .
+    docker build -t $tag --build-arg WIN_VER=$WindowsVersion .
 } Catch {
     Throw $_
 }
