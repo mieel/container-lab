@@ -8,7 +8,7 @@ trigger:
 
 
 jobs:
-- job: 2016
+- job: win2016
   pool:
     vmImage: 'vs2017-win2016'
   steps:
@@ -19,7 +19,7 @@ jobs:
     inputs:
       filePath: 'ud-docker/dockerbuild.ps1'
 
-- job: Latest
+- job: winLatest
   pool:
     vmImage: 'windows-latest'
   steps:
