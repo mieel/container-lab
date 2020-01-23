@@ -11,9 +11,6 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
 
-trigger:
-- master
-
 jobs:
 - job: win2016
   pool:
