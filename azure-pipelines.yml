@@ -1,0 +1,30 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+trigger:
+- master
+
+jobs:
+- job: win2016
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - powershell: |
+      docker version
+
+- job: winLatest
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - powershell: |
+      docker version
