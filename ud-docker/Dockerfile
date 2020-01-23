@@ -1,5 +1,6 @@
 # escape=`
-FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2016
+ARG WIN_VER=2016
+FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc${WIN_VER}
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
