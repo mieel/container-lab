@@ -1,0 +1,16 @@
+# escape=`
+FROM microsoft/dotnet-framework:4.7.2-sdk
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+RUN (Get-ItemProperty 'HKLM:SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full').Release
+
+RUN Install-PackageProvider -Name NuGet -RequiredVersion 2.8.5.201 -Force
+
+Run Install-Module PowershellGet -Force
+
+RUN Install-Module UniversalDashboard.Community -Scope CurrentUser -AcceptLicense -SkipPublisherCheck -Force
+
+COPY dashboard.local.ps1 C:\dashboard\dashboard.local.ps1
+
+RUN C:\dashboard\dashboard.local.ps1;`
+	Invoke-WebRequest http://localhost:90 -UseBasicParsing
