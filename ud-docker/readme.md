@@ -11,6 +11,7 @@
     
 3. dockerbuild.ps1
     * Builds Image, runs container and performs a test webrequest
+    * Use the parameter to get the correct image tag with `-WindowsVersion` `2016`(default) or `2019`
     
 ## Demo
 1. go to `/ud-docker` directory
