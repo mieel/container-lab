@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc${WIN_V
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ENV WIN_VER WIN_VER
+ENV WIN_VER ${WIN_VER}
 RUN Write-Host '${WIN_VER}'
 RUN Write-Host $env:WIN_VER
 RUN Write-Host $WIN_VER
