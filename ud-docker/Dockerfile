@@ -1,9 +1,10 @@
 # escape=`
 ARG WIN_VER=2016
 FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc${WIN_VER}
-
+RUN Write-Host %WIN_VER%
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN Write-Host %WIN_VER%
+RUN Write-Host $WIN_VER
 
 ENV WIN_VER ${WIN_VER}
 
