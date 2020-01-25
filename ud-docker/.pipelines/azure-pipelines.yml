@@ -11,7 +11,9 @@ jobs:
 - job: win2016
   pool:
     vmImage: 'vs2017-win2016'
-  steps:  
+  steps: 
+  - powershell: |
+      Install-Module -Name Pester -Force -SkipPublisherCheck -Scope CurrentUser
   - task: PowerShell@2
     inputs:
       filePath: 'ud-docker/dockerbuild.ps1'
@@ -21,6 +23,8 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   steps:
+  - powershell: |
+      Install-Module -Name Pester -Force -SkipPublisherCheck -Scope CurrentUser
   - task: PowerShell@2
     inputs:
       filePath: 'ud-docker/dockerbuild.ps1'
