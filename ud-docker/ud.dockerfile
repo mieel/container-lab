@@ -13,7 +13,7 @@ ARG BASE_TAG
 ARG WIN_IMAGE
 
 RUN Write-Host "Building $Env:BASE_TAG$Env:WIN_VER"
-RUN Get-PackageProvider`;    
+RUN Get-PackageProvider;`    
     dotnet --list-runtimes;`
 #Install dotnetcore hosting bundle 2.2.8
 RUN Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/ba001109-03c6-45ef-832c-c4dbfdb36e00/e3413f9e47e13f1e4b1b9cf2998bc613/dotnet-hosting-2.2.8-win.exe`
