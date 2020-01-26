@@ -1,6 +1,7 @@
 # escape=`
 # Install Downloader
-FROM mcr.microsoft.com/windows/servercore:ltsc2016 AS installer
+ARG WIN_VER=2016
+FROM mcr.microsoft.com/windows/servercore:ltsc${WIN_VER} AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ENV NGINX_VERSION="1.12.2"
@@ -10,7 +11,7 @@ RUN Invoke-WebRequest -OutFile nginx.zip -UseBasicParsing "http://nginx.org/down
     Rename-Item "C:\nginx-$($env:NGINX_VERSION)" C:\nginx;
 
 # NGINX
-FROM mcr.microsoft.com/windows/servercore:ltsc2016
+FROM mcr.microsoft.com/windows/servercore:ltsc${WIN_VER}
 
 EXPOSE 80 443
 WORKDIR C:\nginx
@@ -19,4 +20,4 @@ CMD ".\nginx"
 RUN md C:\nginx\cache
 
 COPY --from=installer C:\nginx\ .
-COPY docker\nginx\conf .\conf
+COPY nginx\conf .\conf

@@ -13,15 +13,15 @@ ARG BASE_TAG
 ARG WIN_IMAGE
 
 RUN Write-Host "Building $Env:BASE_TAG$Env:WIN_VER"
-RUN Get-PackageProvider;`    
-    dotnet --list-runtimes;`
+RUN Get-PackageProvider   
 #Install dotnetcore hosting bundle 2.2.8
 RUN Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/ba001109-03c6-45ef-832c-c4dbfdb36e00/e3413f9e47e13f1e4b1b9cf2998bc613/dotnet-hosting-2.2.8-win.exe`
  -OutFile c:/windows/temp/installer.exe
 RUN Start-Process -FilePath c:/windows/temp/installer.exe -ArgumentList '/install','/quiet','/norestart' -Wait
 RUN Remove-Item -Force c:/windows/temp/installer.exe
 
-# verify IIS
+# verify dotnet runtime - IIS
+RUN dotnet --list-runtimes;
 RUN Get-ChildItem c:/inetpub/wwwroot | Remove-Item -Force
 
 RUN $path='C:\inetpub\wwwroot'; `
