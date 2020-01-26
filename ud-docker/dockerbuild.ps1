@@ -20,6 +20,8 @@ ForEach ($dockerfile in $dockerfiles) {
 }
 
 # CREATE CONTAINER(s)
+Write-Host "Create containers for:"
+Write-Host $images
 ForEAch ($image in $images) {
     
     $container = docker run -d -p 80 $image
