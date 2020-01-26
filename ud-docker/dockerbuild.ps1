@@ -42,10 +42,11 @@ ForEach ($image in $images) {
     $LocalHostUrl = "http://localhost:$Host80Port"
     # TEST
     $test = Describe "connectivity $image"{
-        
-        it "should be responding to $LocalHostUrl" {
-            $Response = Invoke-WebRequest "$LocalHostUrl" -UseBasicParsing          
-            $Response.StatusCode | Should -be '200'
+        If ($WindowsVersion -ne '2016') {
+            it "should be responding to $LocalHostUrl" {
+                $Response = Invoke-WebRequest "$LocalHostUrl" -UseBasicParsing          
+                $Response.StatusCode | Should -be '200'
+            }
         }
         it "should be responding to $ContainterIp" {
             $Response = Invoke-WebRequest $ContainterIp -UseBasicParsing          
