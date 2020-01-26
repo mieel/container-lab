@@ -2,30 +2,45 @@ Param(
     [ValidateSet("2016","2019")]
     $WindowsVersion
 )# BUILD IMAGE
-$tag = "$WindowsVersion-iis-ud"
-Try {
-    cd $PSScriptRoot
-    docker build -t $tag --build-arg WIN_VER=$WindowsVersion .
-} Catch {
-    Throw $_
-}
-
-# CREATE CONTAINER
-$container = docker run -d -p 80 $tag
-
-$containerPort = docker port $container
-
-$PortNumber = $containerPort | ForEach-Object {
-    $sc = $containerPort.IndexOf(':')+1; $containerPort.Substring($sc,$containerPort.Length-$sc)
-}
-
-Write-Host "Container $container is running on port $portNumber"
-
-# TEST
-Describe 'response' {
-    $Response = Invoke-WebRequest http://localhost:$PortNumber
-    it 'should return Expected content' {
-        $Response.Content | Should -match 'Universal Dashboard'
+# BUILD IMAGE(s)
+$images = @()
+$dockerfiles = Get-ChildItem -Filter '*.dockerfile'
+$dockerfiles
+ForEach ($dockerfile in $dockerfiles) {
+    Write-Host "Building: " $dockerfile.Name
+    $tag = $dockerfile.BaseName + ':local'
+    Try {
+        # build docker image specifying the tag and dockerfile, with the current workdir as context
+        docker build -t $tag --build-arg WIN_VER=$WindowsVersion -f $dockerfile.Name .
+    } Catch {
+        Throw $_
     }
+    $images += $tag
 }
 
+# CREATE CONTAINER(s)
+ForEAch ($image in $images) {
+    
+    $container = docker run -d -p 80 $image
+
+    $containerPort = docker port $container
+
+    $PortNumber = $containerPort | ForEach-Object {
+        $sc = $containerPort.IndexOf(':')+1
+        $containerPort.Substring($sc,$containerPort.Length-$sc)
+    }
+
+    Write-Host "Container $container is running on port $portNumber"
+
+    $endpointUrl = "http://localhost:$PortNumber"
+    # TEST
+    Describe 'response' {
+        $Response = Invoke-WebRequest $endpointUrl
+        $ExpectedContent = 'Universal Dashboard'
+        it 'should return Expected content' {
+            $Response.Content | Should -match "$ExpectedContent" 
+        }
+    }
+
+    $endpointUrl
+}
