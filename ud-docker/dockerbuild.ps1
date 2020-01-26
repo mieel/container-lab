@@ -1,6 +1,6 @@
 Param(
     [ValidateSet("2016","2019")]
-    $WindowsVersion
+    $WindowsVersion = 2016
 )# BUILD IMAGE
 # BUILD IMAGE(s)
 $images = @()
