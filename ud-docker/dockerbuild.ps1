@@ -31,11 +31,11 @@ ForEAch ($image in $images) {
         $containerPort.Substring($sc,$containerPort.Length-$sc)
     }
 
-    Write-Host "Container $container is running on port $portNumber"
+    Write-Host "Image $image is running in $container on port $portNumber"
 
     $endpointUrl = "http://localhost:$PortNumber"
     # TEST
-    Describe 'response' {
+    Describe "Testing $image" {
         $Response = Invoke-WebRequest $endpointUrl
         $ExpectedContent = 'Universal Dashboard'
         it 'should return Expected content' {
