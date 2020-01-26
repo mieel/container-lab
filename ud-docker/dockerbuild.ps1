@@ -4,7 +4,7 @@ Param(
 )# BUILD IMAGE
 # BUILD IMAGE(s)
 $images = @()
-Set-Location $PScriptRoot
+Set-Location $PSScriptRoot
 $dockerfiles = Get-ChildItem -Filter '*.dockerfile'
 $dockerfiles
 ForEach ($dockerfile in $dockerfiles) {
