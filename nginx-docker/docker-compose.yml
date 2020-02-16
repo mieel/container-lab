@@ -34,3 +34,15 @@ services:
             - reverseproxy
         image: tutum/hello-world
         restart: always
+ 
+    hello2:
+        depends_on:
+            - reverseproxy
+        image: tutum/hello-world
+        restart: always
+
+    hello3:
+        depends_on:
+            - reverseproxy
+        image: tutum/hello-world
+        restart: always
